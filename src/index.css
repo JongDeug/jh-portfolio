@@ -1,42 +1,217 @@
-/* ── 이력서 — 카오스룩 (ink dark + electric lime + 별가루) ───────── */
+/* ── 이력서 양식 (Pretendard 문서형) ─────────────────────── */
 :root {
-  --bg:#0A0B0D; --surface:#101216; --surface-2:#16191F; --surface-3:#1E222A;
-  --ink:#F2F3F0; --ink-2:#A7ABA4; --ink-3:#6C7068; --faint:#474B45;
-  --lime:#C9F24E; --lime-bright:#D7FB67; --lime-soft:rgba(201,242,78,.13); --lime-line:rgba(201,242,78,.42); --lime-glow:rgba(201,242,78,.4);
-  --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.11); --line-strong:rgba(255,255,255,.18); --hover:#181B22;
-  --radius:13px; --radius-sm:8px;
-  --sans:'Pretendard', system-ui, sans-serif;
-  --serif:'Newsreader','Noto Serif KR', Georgia, serif;
-  --grot:'Space Grotesk', var(--sans); --mono:'JetBrains Mono', monospace;
+  --ink: #1a1a1e;        /* 본문 */
+  --ink-strong: #0b0b0f; /* 제목/강조 */
+  --muted: #6b6b76;      /* 부제/메타 */
+  --line: #e6e6ea;       /* 구분선 */
+  --accent: #2f57d8;     /* 링크/포인트 */
+  --chip-bg: #f2f3f7;
+  --chip-ink: #4a4a55;
+  --doc: #ffffff;
+  --page: #e9eaef;       /* 문서 바깥 배경 */
+  --lh: 1.55;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--surface-3) transparent; }
-html::-webkit-scrollbar { width: 11px; }
-html::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
-html::-webkit-scrollbar-thumb:hover { background: var(--line-strong); background-clip: padding-box; border: 3px solid transparent; }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg); color: var(--ink); font-family: var(--sans);
-  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-  word-break: keep-all; overflow-wrap: break-word; overflow-x: hidden; min-height: 100vh;
-  background-image:
-    radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.4px),
-    radial-gradient(70% 55% at 88% -8%, var(--lime-soft), transparent 60%),
-    radial-gradient(60% 50% at 4% 102%, rgba(201,242,78,.05), transparent 58%);
-  background-size: 22px 22px, 100% 100%, 100% 100%;
-  background-attachment: fixed;
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: 'Pretendard', 'Pretendard Variable', system-ui, -apple-system, sans-serif;
+  line-height: var(--lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  word-break: keep-all;
 }
-::selection { background: var(--lime-soft); }
-a { color: inherit; }
 
-/* 읽기 진행바 */
-.read-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--lime), var(--lime-bright)); box-shadow: 0 0 10px var(--lime-glow); z-index: 120; transition: width .08s linear; }
+/* 배경에 은은한 그리드 감성 */
+.page {
+  min-height: 100svh;
+  padding: 40px 16px 64px;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.045) 1px, transparent 0);
+  background-size: 22px 22px;
+}
 
-/* 페이지 레이아웃 */
-.page { min-height: 100vh; padding: 0 24px; }
-.doc { max-width: 780px; margin: 0 auto; padding: 74px 0 90px; }
+.doc {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--doc);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px -12px rgba(20, 22, 40, 0.28), 0 2px 8px -2px rgba(20, 22, 40, 0.12);
+  padding: 52px 56px;
+}
 
-/* 스크롤 reveal */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+/* ── 헤더 ── */
+.head { margin-bottom: 8px; }
+.name {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--ink-strong);
+  margin: 0 0 6px;
+}
+.role {
+  font-size: 15.5px;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.role b { color: var(--ink-strong); font-weight: 700; }
+
+.quote {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(90deg, rgba(47, 87, 216, 0.05), transparent);
+  border-radius: 0 8px 8px 0;
+  font-size: 14.5px;
+  color: #33333c;
+  line-height: 1.62;
+}
+.quote .fire { margin-right: 2px; }
+
+.contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.contact { display: inline-flex; align-items: center; gap: 5px; }
+.cico { font-size: 13px; }
+.contacts a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+.contacts a:hover { border-bottom-color: var(--accent); }
+
+/* ── 섹션 ── */
+.section { margin-top: 34px; }
+.sec-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ink-strong);
+}
+.sec-title .ko { font-size: 20px; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.4px; }
+.sec-title .en { font-size: 11.5px; font-weight: 600; letter-spacing: 1.5px; color: #b7b7c0; }
+
+.sub-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink-strong);
+  margin: 16px 0 4px;
+}
+.about-block:first-child .sub-title { margin-top: 0; }
+.muted-italic { font-style: italic; color: var(--muted); font-size: 13.5px; margin: 0 0 6px; }
+
+/* ── 불릿 ── */
+.bul { margin: 6px 0 0; padding-left: 20px; }
+.bul li { font-size: 14px; color: var(--ink); margin: 0 0 6px; line-height: 1.6; }
+.bul li::marker { color: #c2c2cc; }
+.bul .lab { color: var(--ink-strong); font-weight: 700; }
+.bul .em { font-style: italic; color: #44444e; }
+.bul.sub { margin-top: 5px; padding-left: 18px; }
+.bul.sub li { font-size: 13.3px; color: #55555f; margin-bottom: 4px; }
+.bul.sub li::marker { content: '– '; }
+
+/* ── 스킬 표 ── */
+table.skills { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.skills th {
+  text-align: left;
+  width: 168px;
+  padding: 7px 12px 7px 0;
+  color: var(--accent);
+  font-weight: 700;
+  vertical-align: top;
+  white-space: nowrap;
+}
+table.skills td { padding: 7px 0; color: var(--ink); border-bottom: 1px solid var(--line); }
+table.skills tr:last-child td { border-bottom: none; }
+table.skills th { border-bottom: 1px solid var(--line); }
+table.skills tr:last-child th { border-bottom: none; }
+
+/* ── 프로젝트 ── */
+.proj-note { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
+.pk {
+  padding-top: 22px;
+  break-inside: avoid;
+}
+.proj-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-strong);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.badge {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--chip-bg);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.stack { margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--chip-ink);
+  background: var(--chip-bg);
+  padding: 2px 9px;
+  border-radius: 6px;
+  transform: skewX(-8deg);
+  display: inline-block;
+}
+
+/* ── 학력 ── */
+.edu { font-size: 14px; color: var(--ink); margin: 4px 0; }
+.edu b { color: var(--ink-strong); }
+.edu-period { color: var(--muted); }
+.certs-title { margin-top: 14px; }
+.certs li { font-size: 13.5px; }
+
+/* ── 자기소개서 ── */
+.cover-p { font-size: 14px; color: var(--ink); margin: 0 0 11px; line-height: 1.68; }
+.cover-strong { color: var(--ink-strong); font-weight: 700; }
+
+/* ── 푸터 ── */
+.foot {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.foot a { color: var(--accent); text-decoration: none; }
+.foot-dot { color: #cfcfd6; }
+
+/* ── 스크롤 등장 ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .read-progress { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ── 반응형 ── */
+@media (max-width: 640px) {
+  .page { padding: 20px 10px 40px; }
+  .doc { padding: 32px 22px; border-radius: 10px; }
+  .name { font-size: 32px; }
+  .sec-title .ko { font-size: 18px; }
+  table.skills th { width: auto; white-space: normal; padding-right: 10px; }
+  .quote { font-size: 13.5px; padding: 12px 14px; }
+}
