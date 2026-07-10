@@ -8,7 +8,7 @@ export default {
     { icon: `📧`, label: `jongdeug2021@gmail.com`, href: `mailto:jongdeug2021@gmail.com` },
     { icon: `📱`, label: `010-9370-3557`, href: `tel:01093703557` },
     { icon: ``, label: `GitHub`, href: `https://github.com/JongDeug` },
-    { icon: ``, label: `Blog`, href: `https://jongdeug.duckdns.org/chaos/blog` },
+    { icon: ``, label: `Blog`, href: `https://jongdeug.duckdns.org/blog` },
     { icon: ``, label: `군필`, href: null },
   ],
 
