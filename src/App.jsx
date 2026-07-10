@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import resume from './data/resume'
+import './App.css'
 
 // 스크롤 진입 시 섹션이 부드럽게 등장
 function useReveal() {
@@ -21,7 +22,16 @@ function useReveal() {
       { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
     )
     els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+
+    const bar = document.querySelector('.read-progress')
+    const onScroll = () => {
+      const h = document.documentElement
+      const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1)
+      if (bar) bar.style.width = `${Math.min(100, p * 100)}%`
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll) }
   }, [])
 }
 
@@ -64,6 +74,7 @@ export default function App() {
 
   return (
     <div className="page">
+      <div className="read-progress" />
       <article className="doc">
         {/* ── 헤더 ── */}
         <header className="head reveal in">
