@@ -49,7 +49,7 @@ export default {
       stack: [`NestJS`, `TypeScript`, `MariaDB`, `Prisma`, `NATS`, `Docker`],
       items: [
         { k: `문제`, v: `여러 SNS 채널(Kakao·Meta·LINE·WeChat 등)로 인입되는 고객 메시지를 하나의 병원용 메신저 플랫폼에서 처리해야 했고, 초기 구조는 외부 SaaS(Respond.io)에 의존.` },
-        { k: `결정`, v: `Respond.io 의존성을 제거하고 SNS API 직접 연동 구조로 재설계. 초기 공수 우려가 있었으나 직접 구현해 운영비·통제권 확보.` },
+        { k: `결정`, v: `각 SNS 공식 문서를 수집해 API 및 공통 DTO 설계.` },
         { k: `임팩트`, v: `회사 부담 운영비 월 최대 약 196만 원(2만 MAC 기준) → 0원 (카카오 제외).` },
         { k: `설계`, v: `webhook 수집 → 표준 이벤트 정규화 → NATS 전파로 이어지는 중계 게이트웨이 구조 설계.` },
         { k: `구현`, v: `연동 채널이 늘어남에 따라 팩토리 패턴을 도입해 신규 채널을 기존 코드 수정 없이 추가하는 구조(OCP)로 구현. Meta(Facebook·Instagram·WhatsApp) OAuth 인증도 구현.` },
