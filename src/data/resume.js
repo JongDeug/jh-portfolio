@@ -6,7 +6,6 @@ export default {
   quote: `프로그래밍은 가치를 창출하는 수단이라고 생각합니다. 피자 한 조각을 만드는 개발자보다, 피자 한 판을 만들어 팔 줄 아는 개발자가 되고 싶습니다. 반복되는 문제를 더 나은 방식으로 바꾸는 일에 재미를 느낍니다.`,
   contacts: [
     { icon: `📧`, label: `jongdeug2021@gmail.com`, href: `mailto:jongdeug2021@gmail.com` },
-    { icon: `📱`, label: `010-9370-3557`, href: `tel:01093703557` },
     { icon: ``, label: `GitHub`, href: `https://github.com/JongDeug` },
     { icon: ``, label: `Blog`, href: `https://jongdeug.duckdns.org/blog` },
     { icon: ``, label: `군필`, href: null },
