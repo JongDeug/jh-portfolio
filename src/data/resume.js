@@ -91,10 +91,11 @@ export default {
     {
       title: `병원용 메신저 플랫폼`,
       badge: `B2B 백엔드`,
-      stack: [`Go`, `NATS`, `MariaDB`, `Redis`, `KrakenD`],
+      stack: [`Go`, `NATS`, `MariaDB`, `Redis`, `KrakenD`, `WebSocket`],
       items: [
-        { k: `배경`, v: `신규 사업으로 출범한 Go·NATS 이벤트 드리븐 MSA에 합류. 기존 HTTP 요청-응답(Gin)과 달리, 서비스 간 비동기 통신(NATS)과 실시간 WebSocket을 함께 다뤄야 하는 환경.` },
-        { k: `기여`, v: `정해진 아키텍처 위에서 WebSocket·그룹 멘션·SNS 옴니채널 연동 등 도메인 기능을 구현. 이벤트 드리븐 아키텍처와 NATS 메시지 브로커를 실무에서 처음 익히며 분산·비동기 메시징으로 역량을 확장 중.` },
+        { k: `배경`, v: `신규 사업으로 출범한 Go·NATS 이벤트 드리븐 MSA에 합류. 서비스 간 비동기 통신(NATS)과 실시간 WebSocket을 함께 다루는 환경이며, 실제 병원 현장에 출시돼 의료진이 매일 쓰는 메신저로 운영 중.` },
+        { k: `기여`, v: `WebSocket 실시간 연결·그룹 멘션·SNS 옴니채널 연동 등 도메인 기능을 이벤트 드리븐 아키텍처와 NATS 메시지 브로커 위에서 구현.` },
+        { k: `설계 (상담톡 실시간 아키텍처)`, v: `병원 문의를 받는 신규 상담톡의 WebSocket 구조를 직접 설계. 기존 '연결당 consumer' 구조가 동시접속이 늘수록 확장성에 한계가 있다고 판단해, '인스턴스당 consumer 1개 + 메모리 fan-out + subject 라우팅' 구조로 재설계 중.` },
         { k: `배포`, v: `GitHub 셀프 호스트 러너를 구축해 테스트 환경에서 CI/CD 파이프라인을 자체 구축.` },
       ],
     },
