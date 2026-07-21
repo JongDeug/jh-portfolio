@@ -2,7 +2,7 @@
 export default {
   name: `김종환`,
   role: `Backend Developer`,
-  summary: `의료 SaaS 백엔드 1년+ · NestJS / Go · 이벤트 드리븐 MSA`,
+  summary: `의료 SaaS 백엔드 · NestJS / Go · 이벤트 드리븐 MSA`,
   quote: `프로그래밍은 가치를 창출하는 수단이라고 생각합니다. 피자 한 조각을 만드는 개발자보다, 피자 한 판을 만들어 팔 줄 아는 개발자가 되고 싶습니다. 반복되는 문제를 더 나은 방식으로 바꾸는 일에 재미를 느낍니다.`,
   contacts: [
     { icon: `📧`, label: `jongdeug2021@gmail.com`, href: `mailto:jongdeug2021@gmail.com` },
@@ -38,7 +38,7 @@ export default {
     { k: `Messaging`, v: `NATS, RabbitMQ` },
     { k: `DB / ORM`, v: `MySQL, MariaDB / Redis / Prisma, TypeORM` },
     { k: `Frontend`, v: `HTML, CSS, SvelteKit, React` },
-    { k: `Tooling / DevOps`, v: `Docker, Docker-Compose, Harbor, Git, GitHub Actions` },
+    { k: `Tooling / DevOps`, v: `Docker, Docker-Compose, Harbor, Git, GitHub Actions, Vim, tmux` },
   ],
 
   projectsNote: `2025.03 ~ 재직 중`,
