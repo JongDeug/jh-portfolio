@@ -135,6 +135,39 @@ table.skills tr:last-child td { border-bottom: none; }
 table.skills th { border-bottom: 1px solid var(--line); }
 table.skills tr:last-child th { border-bottom: none; }
 
+/* ── 스킬 로고 칩 ── */
+.skills-grid { display: flex; flex-direction: column; gap: 6px; }
+.skill-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.skill-row:last-child { border-bottom: none; }
+.skill-cat {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 5px;
+}
+.skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1;
+}
+.skill-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
+
 /* ── 프로젝트 ── */
 .proj-note { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
 .pk {
@@ -161,6 +194,15 @@ table.skills tr:last-child th { border-bottom: none; }
   border-radius: 999px;
 }
 .stack { margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.proj-figure { margin: 10px 0 14px; }
+.proj-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
 .chip {
   font-family: 'Pretendard', system-ui, sans-serif;
   font-style: italic;
@@ -170,8 +212,11 @@ table.skills tr:last-child th { border-bottom: none; }
   padding: 2px 9px;
   border-radius: 6px;
   transform: skewX(-8deg);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
+.chip svg { width: 12px; height: 12px; flex-shrink: 0; transform: skewX(8deg); }
 
 /* ── 학력 ── */
 .edu { font-size: 14px; color: var(--ink); margin: 4px 0; }
@@ -213,5 +258,7 @@ table.skills tr:last-child th { border-bottom: none; }
   .name { font-size: 32px; }
   .sec-title .ko { font-size: 18px; }
   table.skills th { width: auto; white-space: normal; padding-right: 10px; }
+  .skill-row { grid-template-columns: 1fr; gap: 6px; }
+  .skill-cat { padding-top: 0; }
   .quote { font-size: 13.5px; padding: 12px 14px; }
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import resume from './data/resume'
+import { resolveIcon } from './data/skillIcons'
 
 // 스크롤 진입 시 섹션이 부드럽게 등장
 function useReveal() {
@@ -103,16 +104,28 @@ export default function App() {
 
         {/* ── 스킬 ── */}
         <Section id="skills" ko="스킬" en="SKILLS">
-          <table className="skills">
-            <tbody>
-              {r.skills.map((s, i) => (
-                <tr key={i}>
-                  <th>{s.k}</th>
-                  <td>{s.v}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="skills-grid">
+            {r.skills.map((s, i) => (
+              <div className="skill-row" key={i}>
+                <div className="skill-cat">{s.k}</div>
+                <div className="skill-chips">
+                  {s.items.map((name, j) => {
+                    const ic = resolveIcon(name)
+                    return (
+                      <span className="skill-chip" key={j}>
+                        {ic && (
+                          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                            <path d={ic.path} fill={`#${ic.hex}`} />
+                          </svg>
+                        )}
+                        {name}
+                      </span>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
         </Section>
 
         {/* ── 프로젝트 ── */}
@@ -125,12 +138,25 @@ export default function App() {
                 {p.badge && <em className="badge">{p.badge}</em>}
               </h3>
               <p className="stack">
-                {p.stack.map((t, j) => (
-                  <code className="chip" key={j}>
-                    {t}
-                  </code>
-                ))}
+                {p.stack.map((t, j) => {
+                  const ic = resolveIcon(t)
+                  return (
+                    <code className="chip" key={j}>
+                      {ic && (
+                        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                          <path d={ic.path} fill={`#${ic.hex}`} />
+                        </svg>
+                      )}
+                      {t}
+                    </code>
+                  )
+                })}
               </p>
+              {p.figure && (
+                <figure className="proj-figure">
+                  <img src={p.figure} alt={p.figureAlt || p.title} loading="lazy" />
+                </figure>
+              )}
               <Bullets items={p.items} />
             </div>
           ))}
