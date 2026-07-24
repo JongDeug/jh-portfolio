@@ -83,7 +83,6 @@ export default {
         {
           k: `교부번호 동시성`,
           v: `로컬에서 검증한 해법이 운영 인프라(분산 DB)에선 통하지 않을 수 있음을 배운 트러블슈팅`,
-          italic: true,
           sub: [
             `동시 저장 시 교부번호가 중복·NaN 발급되는 race condition 발견`,
             `채번을 백엔드로 이관하고 SELECT ... FOR UPDATE 기반으로 직렬화하여 로컬 환경에서 해결`,
