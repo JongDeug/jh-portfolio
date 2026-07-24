@@ -113,9 +113,9 @@ body {
 .bul li { font-size: 14px; color: var(--ink); margin: 0 0 6px; line-height: 1.6; }
 .bul li::marker { color: #c2c2cc; }
 .bul .lab { color: var(--ink-strong); font-weight: 700; }
-.bul .em { font-style: italic; color: #44444e; }
+.bul .em { font-style: italic; color: var(--ink); }
 .bul.sub { margin-top: 5px; padding-left: 18px; }
-.bul.sub li { font-size: 13.3px; color: #55555f; margin-bottom: 4px; }
+.bul.sub li { font-size: 13.3px; color: var(--ink); margin-bottom: 4px; }
 .bul.sub li::marker { content: '– '; }
 
 /* ── 스킬 표 ── */
