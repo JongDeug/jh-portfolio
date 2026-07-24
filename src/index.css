@@ -72,7 +72,6 @@ body {
   color: #33333c;
   line-height: 1.62;
 }
-.quote .fire { margin-right: 2px; }
 
 .contacts {
   display: flex;
@@ -136,28 +135,28 @@ table.skills th { border-bottom: 1px solid var(--line); }
 table.skills tr:last-child th { border-bottom: none; }
 
 /* ── 스킬 로고 칩 ── */
-.skills-grid { display: flex; flex-direction: column; gap: 6px; }
+.skills-grid { display: flex; flex-direction: column; gap: 0; }
 .skill-row {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 14px;
   align-items: start;
-  padding: 9px 0;
+  padding: 5px 0;
   border-bottom: 1px solid var(--line);
 }
 .skill-row:last-child { border-bottom: none; }
 .skill-cat {
   font-size: 13px;
   font-weight: 700;
-  color: var(--accent);
-  padding-top: 5px;
+  color: var(--ink-strong);
+  padding-top: 4px;
 }
-.skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .skill-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 11px;
+  padding: 4px 10px;
   border: 1px solid var(--line);
   border-radius: 9px;
   font-size: 12.5px;
@@ -184,6 +183,27 @@ table.skills tr:last-child th { border-bottom: none; }
   gap: 8px;
   flex-wrap: wrap;
 }
+.proj-num {
+  color: var(--accent);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+/* 산하(하위) 프로젝트 */
+.pk-sub {
+  margin: 16px 0 4px;
+  padding: 14px 0 2px 18px;
+  border-left: 2px solid var(--accent);
+}
+.proj-sub-title { font-size: 14.5px; }
+.sub-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: #eef2fd;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
 .badge {
   font-style: normal;
   font-size: 11px;
@@ -205,18 +225,16 @@ table.skills tr:last-child th { border-bottom: none; }
 }
 .chip {
   font-family: 'Pretendard', system-ui, sans-serif;
-  font-style: italic;
   font-size: 12px;
   color: var(--chip-ink);
   background: var(--chip-bg);
-  padding: 2px 9px;
+  padding: 3px 9px;
   border-radius: 6px;
-  transform: skewX(-8deg);
   display: inline-flex;
   align-items: center;
   gap: 5px;
 }
-.chip svg { width: 12px; height: 12px; flex-shrink: 0; transform: skewX(8deg); }
+.chip svg { width: 12px; height: 12px; flex-shrink: 0; }
 
 /* ── 학력 ── */
 .edu { font-size: 14px; color: var(--ink); margin: 4px 0; }
@@ -227,7 +245,27 @@ table.skills tr:last-child th { border-bottom: none; }
 
 /* ── 자기소개서 ── */
 .cover-p { font-size: 14px; color: var(--ink); margin: 0 0 11px; line-height: 1.68; }
-.cover-strong { color: var(--ink-strong); font-weight: 700; }
+.cover-badge {
+  display: inline-block;
+  background: #eef2fd;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 6px 13px;
+  border-radius: 6px;
+  margin: 2px 0 16px;
+}
+.cover-item { margin: 0 0 14px; }
+.cover-head { font-size: 15px; font-weight: 700; color: var(--ink-strong); margin: 0 0 5px; }
+.cover-num { color: var(--accent); font-weight: 800; }
+.cover-quote {
+  margin: 16px 0 0;
+  padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--accent);
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.68;
+}
 
 /* ── 푸터 ── */
 .foot {
@@ -243,14 +281,6 @@ table.skills tr:last-child th { border-bottom: none; }
 .foot a { color: var(--accent); text-decoration: none; }
 .foot-dot { color: #cfcfd6; }
 
-/* ── 스크롤 등장 ── */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  html { scroll-behavior: auto; }
-}
-
 /* ── 반응형 ── */
 @media (max-width: 640px) {
   .page { padding: 20px 10px 40px; }
@@ -261,4 +291,21 @@ table.skills tr:last-child th { border-bottom: none; }
   .skill-row { grid-template-columns: 1fr; gap: 6px; }
   .skill-cat { padding-top: 0; }
   .quote { font-size: 13.5px; padding: 12px 14px; }
+}
+
+/* ── 인쇄 / PDF ── */
+@page { margin: 12mm; }
+@media print {
+  /* 배경색·로고 색이 인쇄에서 날아가지 않게 강제 */
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff; }
+  /* 도트 배경·바깥 여백 제거 */
+  .page { background: #fff !important; background-image: none !important; padding: 0; }
+  /* 문서 그림자·모서리 제거, 폭 꽉 채우기 */
+  .doc { box-shadow: none !important; max-width: 100%; border-radius: 0; margin: 0; padding: 0; }
+  /* 페이지 경계에서 요소가 잘리지 않게 */
+  .about-block, .pk, .proj-figure, .skill-row, .edu, .cover-p { break-inside: avoid; }
+  .sec-title { break-after: avoid; }
+  .proj-figure img { box-shadow: none; }
+  a { text-decoration: none; }
 }

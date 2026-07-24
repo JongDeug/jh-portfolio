@@ -7,7 +7,7 @@ export default {
   summary: `의료 SaaS 백엔드 · NestJS / Go · 이벤트 드리븐 MSA`,
   quote: `프로그래밍은 가치를 창출하는 수단이라고 생각합니다. 피자 한 조각을 만드는 개발자보다, 피자 한 판을 만들어 팔 줄 아는 개발자가 되고 싶습니다. 반복되는 문제를 더 나은 방식으로 바꾸는 일에 재미를 느낍니다.`,
   contacts: [
-    { icon: `📧`, label: `jongdeug2021@gmail.com`, href: `mailto:jongdeug2021@gmail.com` },
+    { icon: ``, label: `jongdeug2021@gmail.com`, href: `mailto:jongdeug2021@gmail.com` },
     { icon: ``, label: `GitHub`, href: `https://github.com/JongDeug` },
     { icon: ``, label: `Blog`, href: `https://jongdeug.duckdns.org/blog/@jongdeug` },
     { icon: ``, label: `군필`, href: null },
@@ -46,18 +46,31 @@ export default {
   projectsNote: `2025.03 ~ 재직 중`,
   projects: [
     {
-      title: `외부 SNS 채널 7종 통합 연동 게이트웨이`,
-      badge: null,
-      stack: [`NestJS`, `TypeScript`, `MariaDB`, `Prisma`, `NATS`, `Docker`],
-      figure: snsGateway,
-      figureAlt: `SNS 채널 7종(카카오·Meta·LINE·WeChat 외) → Integration Gateway(webhook 수집·정규화·팩토리 패턴) → NATS → 병원용 통합 인박스 흐름도`,
+      title: `병원용 메신저 플랫폼`,
+      badge: `B2B 백엔드`,
+      stack: [`Go`, `NATS`, `MariaDB`, `Redis`, `KrakenD`, `WebSocket`],
       items: [
-        { k: `문제`, v: `여러 SNS 채널(Kakao·Meta·LINE·WeChat 등)로 인입되는 고객 메시지를 하나의 병원용 메신저 플랫폼에서 처리해야 했고, 초기 구조는 외부 SaaS(Respond.io)에 의존.` },
-        { k: `결정`, v: `각 SNS 공식 문서를 수집해 API 및 공통 DTO 설계.` },
-        { k: `임팩트`, v: `회사 부담 운영비 월 최대 약 196만 원(2만 MAC 기준) → 0원 (카카오 제외).` },
-        { k: `설계`, v: `webhook 수집 → 표준 이벤트 정규화 → NATS 전파로 이어지는 중계 게이트웨이 구조 설계.` },
-        { k: `구현`, v: `연동 채널이 늘어남에 따라 팩토리 패턴을 도입해 신규 채널을 기존 코드 수정 없이 추가하는 구조(OCP)로 구현. Meta 앱 검수 후 OAuth 채널 인증도 구현.` },
-        { k: `개선`, v: `병목 지점을 AI와 함께 분석해 캐싱·timeout 적용. 다중 인스턴스를 위한 서버 간 NATS 통신 적용.` },
+        { k: `배경`, v: `신규 사업으로 출범한 Go·NATS 이벤트 드리븐 MSA에 합류. 서비스 간 비동기 통신(NATS)과 실시간 WebSocket을 함께 다루는 환경이며, 실제 병원 현장에 출시돼 의료진이 매일 쓰는 메신저로 운영 중.` },
+        { k: `기여`, v: `WebSocket 실시간 연결·그룹 멘션·SNS 옴니채널 연동 등 도메인 기능을 이벤트 드리븐 아키텍처와 NATS 메시지 브로커 위에서 구현.` },
+        { k: `설계 개선`, v: `NATS 구조 재설계를 제안. 기존 '연결당 consumer' 방식이 동시접속이 늘수록 consumer·메모리 부하로 확장성에 한계가 있다고 판단해, '인스턴스당 consumer 1개 + 메모리 fan-out + subject 라우팅' 구조를 제안했고 재설계안이 채택됨.` },
+        { k: `배포`, v: `GitHub 셀프 호스트 러너를 구축해 테스트 환경에서 CI/CD 파이프라인을 자체 구축.` },
+      ],
+      sub: [
+        {
+          title: `외부 SNS 채널 7종 통합 연동 게이트웨이`,
+          badge: null,
+          stack: [`NestJS`, `TypeScript`, `MariaDB`, `Prisma`, `NATS`, `Docker`],
+          figure: snsGateway,
+          figureAlt: `SNS 채널 7종(카카오·Meta·LINE·WeChat 외) → Integration Gateway(webhook 수집·정규화·팩토리 패턴) → NATS → 병원용 통합 인박스 흐름도`,
+          items: [
+            { k: `문제`, v: `여러 SNS 채널(Kakao·Meta·LINE·WeChat 등)로 인입되는 고객 메시지를 하나의 병원용 메신저 플랫폼에서 처리해야 했고, 초기 구조는 외부 SaaS(Respond.io)에 의존.` },
+            { k: `결정`, v: `각 SNS 공식 문서를 수집해 API 및 공통 DTO 설계.` },
+            { k: `임팩트`, v: `회사 부담 운영비 월 최대 약 196만 원(2만 MAC 기준) → 0원 (카카오 제외).` },
+            { k: `설계`, v: `webhook 수집 → 표준 이벤트 정규화 → NATS 전파로 이어지는 중계 게이트웨이 구조 설계.` },
+            { k: `구현`, v: `연동 채널이 늘어남에 따라 팩토리 패턴을 도입해 신규 채널을 기존 코드 수정 없이 추가하는 구조(OCP)로 구현. Meta 앱 검수 후 OAuth 채널 인증도 구현.` },
+            { k: `개선`, v: `병목 지점을 AI와 함께 분석해 캐싱·timeout 적용. 다중 인스턴스를 위한 서버 간 NATS 통신 적용.` },
+          ],
+        },
       ],
     },
     {
@@ -83,17 +96,6 @@ export default {
       ],
     },
     {
-      title: `병원용 메신저 플랫폼`,
-      badge: `B2B 백엔드`,
-      stack: [`Go`, `NATS`, `MariaDB`, `Redis`, `KrakenD`, `WebSocket`],
-      items: [
-        { k: `배경`, v: `신규 사업으로 출범한 Go·NATS 이벤트 드리븐 MSA에 합류. 서비스 간 비동기 통신(NATS)과 실시간 WebSocket을 함께 다루는 환경이며, 실제 병원 현장에 출시돼 의료진이 매일 쓰는 메신저로 운영 중.` },
-        { k: `기여`, v: `WebSocket 실시간 연결·그룹 멘션·SNS 옴니채널 연동 등 도메인 기능을 이벤트 드리븐 아키텍처와 NATS 메시지 브로커 위에서 구현.` },
-        { k: `설계 (상담톡 실시간 아키텍처)`, v: `병원 문의를 받는 신규 상담톡의 WebSocket 구조를 직접 설계. 기존 '연결당 consumer' 구조가 동시접속이 늘수록 확장성에 한계가 있다고 판단해, '인스턴스당 consumer 1개 + 메모리 fan-out + subject 라우팅' 구조로 재설계 중.` },
-        { k: `배포`, v: `GitHub 셀프 호스트 러너를 구축해 테스트 환경에서 CI/CD 파이프라인을 자체 구축.` },
-      ],
-    },
-    {
       title: `사내 CS 응대`,
       badge: `Internal Product`,
       stack: [`NestJS`, `TypeScript`, `TypeORM`, `Redis`, `WebSocket`, `Nginx`, `Docker`],
@@ -106,7 +108,7 @@ export default {
     {
       title: `Chaos — AI를 활용한 세컨 브레인`,
       badge: `개인 프로젝트`,
-      stack: [`라즈베리파이 직접 운영`, `Express`, `PostgreSQL(pgvector)`, `React`],
+      stack: [`홈 라즈베리파이 운영`, `Express`, `PostgreSQL(pgvector)`, `React`],
       items: [
         { k: `문제`, v: `단어 일치 검색으로는 과거에 기록한 생각을 '의미'로 다시 찾기 어려웠음.` },
         { k: `결정`, v: `모든 기록을 임베딩해 의미가 가까우면 걸리는 벡터 검색으로 구현(PostgreSQL pgvector). MCP 서버로 Claude Code에 직접 연결.` },
@@ -134,7 +136,7 @@ export default {
       { strong: `1. 우리는 마음에 집어넣은 것으로 세상을 경험한다`, text: `"안 된다"는 생각에 사로잡히면 정말 안 됩니다. 무너진 상황을 부정적으로만 보지 않고 마음부터 다시 세우는 법, 스트레스를 다스리고 여유를 가지는 법을 배웠습니다.` },
       { strong: `2. 겸손`, text: `"성공이 성공이 아니고 실패가 실패가 아니다"라는 말을 그제야 이해했습니다. 어떤 결과도 영원하지 않기에, 잘될 때 들뜨지 않고 안될 때 크게 낙담하지 않는 법을 배웠습니다.` },
       { strong: `3. 한 번에 되는 건 없다`, text: `빠르고 쉽게 얻으려 한 순간 모든 게 무너졌습니다. 그래서 삶의 방식을 바꿨습니다. 완벽하지 않아도 "지금 할 수 있는 것"에 집중하고 매일 반복하는 것. 운동도 2년째 그렇게 해오며, 작은 꾸준함이 실력이 된다는 걸 깨닫고 있는 중입니다.` },
-      { text: `이런 교훈들이 지금 일하는 방식의 바탕이 되었습니다. 하고자 하는 일에 진심을 다하고, 막힐 때도 '지금 할 수 있는 것'부터 하나씩 해내려고 합니다. 앞으로도 맡은 서비스를 안정적으로 책임지는 개발자가 되겠습니다.` },
+      { text: `이런 교훈들이 지금 일하는 방식의 바탕이 되었습니다. 하고자 하는 일에 진심을 다하고, 막힐 때도 '지금 할 수 있는 것'부터 하나씩 해내려고 합니다. 앞으로도 맡은 서비스를 안정적으로 책임지는 개발자가 되겠습니다.`, quote: true },
     ],
   },
 }

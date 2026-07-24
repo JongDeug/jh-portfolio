@@ -33,7 +33,6 @@ channels.forEach((key, i) => {
   const sx = 196
   s += `<path d="M${sx},${cy} C ${sx + 22},${cy} ${funnelX - 30},${funnelY} ${funnelX - 6},${funnelY}" fill="none" stroke="${C.accent}" stroke-width="1.3" opacity="0.4" marker-end="url(#arw)"/>`
 })
-s += `<text x="${(196 + funnelX) / 2 + 4}" y="${funnelY - 8}" font-family="${F}" font-size="9.5" font-style="italic" fill="${C.muted}" text-anchor="middle">webhook</text>`
 
 // ── Zone B: 게이트웨이 ──
 const gx = 250, gw = 330, gy = 40, gh = 220
@@ -63,7 +62,7 @@ s += `<text x="${(nx1 + nx2) / 2}" y="154" font-family="${F}" font-size="11" fon
 // ── Zone C: 통합 인박스 ──
 const mx = 650, mw = 204, my = 40, mh = 220
 s += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="14" fill="#fff" stroke="${C.line}" stroke-width="1.5"/>`
-s += `<text x="${mx + 16}" y="${my + 28}" font-family="${F}" font-size="13" font-weight="800" fill="${C.strong}">🏥 통합 인박스</text>`
+s += `<text x="${mx + 16}" y="${my + 28}" font-family="${F}" font-size="13" font-weight="800" fill="${C.strong}">통합 인박스</text>`
 s += `<text x="${mx + 16}" y="${my + 44}" font-family="${F}" font-size="9.5" fill="${C.muted}">상담사 1명 · 전 채널 응대</text>`
 const inbox = [
   { key: 'kakao', name: '예약 문의' },

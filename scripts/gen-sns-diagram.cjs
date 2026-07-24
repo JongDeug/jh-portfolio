@@ -84,7 +84,7 @@ steps.forEach((st, i) => {
 })
 // 채널 인증 태그
 s += `<rect x="${gx + 26}" y="${gy + gh - 40}" width="${gw - 52}" height="26" rx="13" fill="#fff" stroke="${C.line}" stroke-width="1.2"/>`
-s += `<text x="${gx + gw / 2}" y="${gy + gh - 22}" font-family="${F}" font-size="11.5" font-weight="600" fill="${C.chipInk}" text-anchor="middle">🔐 Meta 앱 검수 완료 · OAuth 채널 인증</text>`
+s += `<text x="${gx + gw / 2}" y="${gy + gh - 22}" font-family="${F}" font-size="11.5" font-weight="600" fill="${C.chipInk}" text-anchor="middle">Meta 앱 검수 완료 · OAuth 채널 인증</text>`
 
 // 게이트웨이 → 병원 메신저 (NATS)
 const nx1 = gx + gw + 4, nx2 = 950
@@ -95,7 +95,7 @@ s += `<text x="${(nx1 + nx2) / 2}" y="${funnelY - 4}" font-family="${F}" font-si
 // ── Zone C: 병원 메신저 통합 인박스 ──
 const mx = 950, mw = 282, my = 168, mh = 402
 s += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="18" fill="#fff" stroke="${C.line}" stroke-width="1.8"/>`
-s += `<text x="${mx + 22}" y="${my + 34}" font-family="${F}" font-size="15.5" font-weight="800" fill="${C.strong}">🏥 통합 인박스</text>`
+s += `<text x="${mx + 22}" y="${my + 34}" font-family="${F}" font-size="15.5" font-weight="800" fill="${C.strong}">통합 인박스</text>`
 s += `<text x="${mx + 22}" y="${my + 54}" font-family="${F}" font-size="11.5" fill="${C.muted}">상담사 1명이 모든 채널을 한 화면에서</text>`
 s += `<line x1="${mx + 22}" y1="${my + 68}" x2="${mx + mw - 22}" y2="${my + 68}" stroke="${C.line}" stroke-width="1.2"/>`
 
@@ -118,7 +118,7 @@ inbox.forEach((m, i) => {
 // ── 하단 캡션 배너 ──
 const bx = 48, bw = W - 96, by = 656, bh = 62
 s += `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="14" fill="${C.accentSoft}" stroke="${C.accentLine}" stroke-width="1.5"/>`
-s += `<text x="${bx + 26}" y="${by + 27}" font-family="${F}" font-size="14.5" font-weight="800" fill="${C.accent}">💡 외부 SaaS(Respond.io) 대신 SNS 통합 게이트웨이 자체 구축</text>`
+s += `<text x="${bx + 26}" y="${by + 27}" font-family="${F}" font-size="14.5" font-weight="800" fill="${C.accent}">외부 SaaS(Respond.io) 대신 SNS 통합 게이트웨이 자체 구축</text>`
 s += `<text x="${bx + 26}" y="${by + 48}" font-family="${F}" font-size="13" fill="${C.chipInk}">월 최대 약 <tspan font-weight="800" fill="${C.strong}">196만 원</tspan> (2만 MAC 기준) 운영비 절감 · 팩토리 패턴으로 신규 채널을 기존 코드 수정 없이 추가</text>`
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${s}</svg>`

@@ -1,30 +1,5 @@
-import { useEffect } from 'react'
 import resume from './data/resume'
 import { resolveIcon } from './data/skillIcons'
-
-// 스크롤 진입 시 섹션이 부드럽게 등장
-function useReveal() {
-  useEffect(() => {
-    const els = document.querySelectorAll('.reveal')
-    if (!('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('in'))
-      return
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in')
-            io.unobserve(e.target)
-          }
-        })
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [])
-}
 
 function Bullets({ items }) {
   return (
@@ -47,9 +22,29 @@ function Bullets({ items }) {
   )
 }
 
+function StackChips({ stack }) {
+  return (
+    <p className="stack">
+      {stack.map((t, j) => {
+        const ic = resolveIcon(t)
+        return (
+          <code className="chip" key={j}>
+            {ic && (
+              <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                <path d={ic.path} fill={`#${ic.hex}`} />
+              </svg>
+            )}
+            {t}
+          </code>
+        )
+      })}
+    </p>
+  )
+}
+
 function Section({ id, ko, en, children }) {
   return (
-    <section className="section reveal" id={id}>
+    <section className="section" id={id}>
       <h2 className="sec-title">
         <span className="ko">{ko}</span>
         <span className="en">{en}</span>
@@ -60,20 +55,19 @@ function Section({ id, ko, en, children }) {
 }
 
 export default function App() {
-  useReveal()
   const r = resume
 
   return (
     <div className="page">
       <article className="doc">
         {/* ── 헤더 ── */}
-        <header className="head reveal in">
+        <header className="head">
           <h1 className="name">{r.name}</h1>
           <p className="role">
             <b>{r.role}</b> · {r.summary}
           </p>
           <blockquote className="quote">
-            <span className="fire">🔥</span> {r.quote}
+            {r.quote}
           </blockquote>
           <p className="contacts">
             {r.contacts.map((c, i) => (
@@ -132,32 +126,36 @@ export default function App() {
         <Section id="projects" ko="프로젝트" en="PROJECTS">
           <p className="proj-note">{r.projectsNote}</p>
           {r.projects.map((p, i) => (
-            <div className="pk reveal" key={i}>
+            <div className="pk" key={i}>
               <h3 className="proj-title">
+                <span className="proj-num">{String(i + 1).padStart(2, '0')}</span>
                 {p.title}
                 {p.badge && <em className="badge">{p.badge}</em>}
               </h3>
-              <p className="stack">
-                {p.stack.map((t, j) => {
-                  const ic = resolveIcon(t)
-                  return (
-                    <code className="chip" key={j}>
-                      {ic && (
-                        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-                          <path d={ic.path} fill={`#${ic.hex}`} />
-                        </svg>
-                      )}
-                      {t}
-                    </code>
-                  )
-                })}
-              </p>
+              <StackChips stack={p.stack} />
               {p.figure && (
                 <figure className="proj-figure">
                   <img src={p.figure} alt={p.figureAlt || p.title} loading="lazy" />
                 </figure>
               )}
               <Bullets items={p.items} />
+              {p.sub &&
+                p.sub.map((sp, k) => (
+                  <div className="pk-sub" key={k}>
+                    <h4 className="proj-title proj-sub-title">
+                      <span className="sub-tag">MSA 구성 서비스</span>
+                      {sp.title}
+                      {sp.badge && <em className="badge">{sp.badge}</em>}
+                    </h4>
+                    <StackChips stack={sp.stack} />
+                    {sp.figure && (
+                      <figure className="proj-figure">
+                        <img src={sp.figure} alt={sp.figureAlt || sp.title} loading="lazy" />
+                      </figure>
+                    )}
+                    <Bullets items={sp.items} />
+                  </div>
+                ))}
             </div>
           ))}
         </Section>
@@ -179,14 +177,38 @@ export default function App() {
 
         {/* ── 자기소개서 ── */}
         <Section id="cover" ko="자기소개서" en="COVER LETTER">
-          <h3 className="sub-title">{r.cover.title}</h3>
-          {r.cover.paragraphs.map((p, i) => (
-            <p className="cover-p" key={i}>
-              {p.strong && <b className="cover-strong">{p.strong}</b>}
-              {p.strong && ' '}
-              {p.text}
-            </p>
-          ))}
+          <span className="cover-badge">{r.cover.title}</span>
+          {r.cover.paragraphs.map((p, i) => {
+            if (p.strong) {
+              const m = p.strong.match(/^(\d+)\.\s*(.*)$/)
+              return (
+                <div className="cover-item" key={i}>
+                  <p className="cover-head">
+                    {m ? (
+                      <>
+                        <span className="cover-num">{m[1]}.</span> {m[2]}
+                      </>
+                    ) : (
+                      p.strong
+                    )}
+                  </p>
+                  <p className="cover-p">{p.text}</p>
+                </div>
+              )
+            }
+            if (p.quote) {
+              return (
+                <blockquote className="cover-quote" key={i}>
+                  {p.text}
+                </blockquote>
+              )
+            }
+            return (
+              <p className="cover-p" key={i}>
+                {p.text}
+              </p>
+            )
+          })}
         </Section>
 
         <footer className="foot">
