@@ -1,0 +1,33 @@
+# main push → Pi 셀프 호스트 러너(pi-jh)가 빌드 → 서빙 디렉터리로 반영.
+# jh-resume.service(server.cjs)는 dist/를 정적 서빙하므로 재시작 불필요.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: [self-hosted, jh]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          export PATH=$HOME/.nvm/versions/node/v24.12.0/bin:$PATH
+          npm ci
+          npm run build
+
+      - name: Deploy dist + server
+        run: |
+          rsync -a --delete dist/ ~/workspace/jh-portfolio/dist/
+          cp server.cjs ~/workspace/jh-portfolio/server.cjs
+
+      - name: Smoke check
+        run: |
+          curl -sf -o /dev/null -w "local: %{http_code}\n" http://127.0.0.1:8093/jh/
+          curl -s http://127.0.0.1:8093/jh/ | grep -q '<title>Index' && echo "title ok"
