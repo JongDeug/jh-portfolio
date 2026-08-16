@@ -25,7 +25,7 @@
   object-fit: cover;
   object-position: 50% 10%;
   transform: scale(1.85);
-  transform-origin: 48% 34%;
+  transform-origin: 48% 22%;
 }
 .cv-name {
   margin: 0;
