@@ -83,7 +83,6 @@ export default function Resume() {
               <div className="ph">
                 <img src={avatar} alt={`${r.name} 프로필 사진`} />
               </div>
-              <figcaption>JONGHWAN KIM</figcaption>
             </figure>
           </div>
           <p className="cv-contacts">

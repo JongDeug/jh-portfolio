@@ -22,16 +22,6 @@
   transform: scale(1.45);
   transform-origin: 47% 24%;
 }
-.cv-photo figcaption {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 0.14em;
-  text-align: center;
-  padding: 4px 2px;
-  border-top: 2px solid var(--rule);
-  background: var(--band);
-  color: var(--paper);
-}
 .cv-name {
   margin: 0;
   font-family: var(--arch);
