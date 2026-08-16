@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 440" font-family="'JetBrains Mono', ui-monospace, monospace">
+  <defs>
+    <marker id="arrL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arrC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#06b6d4"/>
+    </marker>
+    <style><![CDATA[
+      :root {
+        --neutral: #4b5563;
+        --neutral-faint: #9ca3af;
+        --lifeline: #9ca3af;
+        --caption-line: #d1d5db;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --neutral: #d1d5db;
+          --neutral-faint: #9ca3af;
+          --lifeline: #6b7280;
+          --caption-line: #4b5563;
+        }
+      }
+      .lbl { font-size: 11px; fill: var(--neutral); }
+      .actor-label { font-size: 13px; font-weight: 700; }
+      .step { font-size: 10px; fill: var(--neutral-faint); font-weight: 600; }
+      .lifeline { stroke: var(--lifeline); }
+      .cap-line { stroke: var(--caption-line); }
+      .cap { font-size: 10px; fill: var(--neutral-faint); }
+      .noop { fill: var(--neutral-faint); font-style: italic; }
+    ]]></style>
+  </defs>
+
+  <!-- Actor headers: transparent bg + colored border + colored label -->
+  <g>
+    <rect x="70" y="14" width="100" height="36" rx="8" fill="none" stroke="#7c3aed" stroke-width="2"/>
+    <text x="120" y="37" text-anchor="middle" class="actor-label" fill="#7c3aed">G1</text>
+
+    <rect x="290" y="14" width="100" height="36" rx="8" fill="none" stroke="#22c55e" stroke-width="2"/>
+    <text x="340" y="37" text-anchor="middle" class="actor-label" fill="#22c55e">NATS</text>
+
+    <rect x="510" y="14" width="100" height="36" rx="8" fill="none" stroke="#06b6d4" stroke-width="2"/>
+    <text x="560" y="37" text-anchor="middle" class="actor-label" fill="#06b6d4">G2</text>
+  </g>
+
+  <!-- Lifelines -->
+  <line class="lifeline" x1="120" y1="50" x2="120" y2="410" stroke-dasharray="4 4"/>
+  <line class="lifeline" x1="340" y1="50" x2="340" y2="410" stroke-dasharray="4 4"/>
+  <line class="lifeline" x1="560" y1="50" x2="560" y2="410" stroke-dasharray="4 4"/>
+
+  <!-- Step 1: G1 self — local del(key) -->
+  <text x="50" y="92" text-anchor="end" class="step">1</text>
+  <path d="M120,80 Q180,80 180,95 Q180,110 125,110" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrL)"/>
+  <text x="192" y="75" text-anchor="start" class="lbl" fill="#7c3aed" font-weight="600">local del(key)</text>
+
+  <!-- Step 2: G1 → NATS publish -->
+  <text x="50" y="152" text-anchor="end" class="step">2</text>
+  <line x1="120" y1="150" x2="334" y2="150" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrL)"/>
+  <text x="227" y="142" text-anchor="middle" class="lbl" fill="#7c3aed" font-weight="600">publish  internal.cache.invalidate</text>
+
+  <!-- Activation bar on NATS -->
+  <rect x="336" y="152" width="8" height="60" fill="#22c55e" opacity="0.55"/>
+
+  <!-- Step 3: NATS fan-out — two simultaneous deliveries -->
+  <text x="50" y="212" text-anchor="end" class="step">3</text>
+  <text x="340" y="192" text-anchor="middle" class="lbl" fill="#22c55e" font-weight="600">fan-out  (no queue group)</text>
+  <line x1="340" y1="210" x2="126" y2="210" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrG)"/>
+  <line x1="340" y1="210" x2="554" y2="210" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arrG)"/>
+
+  <!-- Step 4: G1 self no-op -->
+  <text x="50" y="262" text-anchor="end" class="step">4</text>
+  <path d="M120,250 Q180,250 180,265 Q180,280 125,280" fill="none" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrL)"/>
+  <text x="192" y="245" text-anchor="start" class="noop">no-op (이미 del)</text>
+
+  <!-- Step 5: G2 self local del -->
+  <text x="50" y="332" text-anchor="end" class="step">5</text>
+  <path d="M560,320 Q620,320 620,335 Q620,350 565,350" fill="none" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arrC)"/>
+  <text x="488" y="315" text-anchor="start" class="lbl" fill="#06b6d4" font-weight="600">local del(key)</text>
+
+  <!-- Bottom caption -->
+  <line class="cap-line" x1="40" y1="394" x2="620" y2="394" stroke-dasharray="2 3"/>
+  <text x="330" y="416" text-anchor="middle" class="cap">총 약 3ms · 실선 = 실제 publish · 점선 = broadcast 수신</text>
+</svg>

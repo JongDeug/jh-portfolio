@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="'Pretendard',-apple-system,sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#555"/></marker>
+    <marker id="arrb" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#3f6fb5"/></marker>
+    <marker id="arrp" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#7d5aa6"/></marker>
+    <marker id="arro" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 Z" fill="#c47f1a"/></marker>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="116%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.18"/></filter>
+  </defs>
+  <rect x="0" y="0" width="900" height="700" fill="#ffffff"/>
+
+  <!-- JetStream -->
+  <rect x="24" y="22" width="852" height="112" rx="6" fill="#fafafa" stroke="#c2c2c2" stroke-dasharray="5 4"/>
+  <text x="40" y="44" font-size="13" font-weight="700" fill="#888">JetStream (Direct Get 허용)</text>
+  <rect x="56" y="56" width="250" height="58" rx="5" fill="#dae8fc" stroke="#6c8ebf" filter="url(#sh)"/>
+  <text x="181" y="81" font-size="14" font-weight="600" fill="#1f3a5f" text-anchor="middle">org별 stream</text>
+  <text x="181" y="100" font-size="11.5" fill="#40587a" text-anchor="middle">Limits + MaxAge TTL</text>
+  <rect x="596" y="56" width="248" height="58" rx="5" fill="#f0f0f0" stroke="#8a8a8a" filter="url(#sh)"/>
+  <text x="720" y="81" font-size="14" font-weight="600" fill="#333" text-anchor="middle">저장용 stream</text>
+  <text x="720" y="100" font-size="11.5" fill="#666" text-anchor="middle">WorkQueue → DB</text>
+  <line x1="306" y1="85" x2="594" y2="85" stroke="#999" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+  <text x="450" y="77" font-size="11" fill="#888" text-anchor="middle">republish</text>
+
+  <!-- 게이트웨이 1 -->
+  <rect x="56" y="224" width="360" height="150" rx="6" fill="#f7faf7" stroke="#b6d3b0"/>
+  <text x="74" y="246" font-size="13" font-weight="700" fill="#5a8a52">WS 게이트웨이 1</text>
+  <rect x="78" y="258" width="316" height="40" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="236" y="283" font-size="12.5" fill="#2f5c28" text-anchor="middle">ordered consumer · DeliverNew (실시간만)</text>
+  <rect x="78" y="308" width="316" height="56" rx="5" fill="#e1d5e7" stroke="#9673a6" filter="url(#sh)"/>
+  <text x="236" y="331" font-size="12.5" font-weight="600" fill="#4a2d63" text-anchor="middle">인메모리 상태</text>
+  <text x="236" y="350" font-size="11" fill="#5f4080" text-anchor="middle">userId→socket · 방 멤버십 맵</text>
+
+  <!-- 게이트웨이 2 -->
+  <rect x="484" y="224" width="360" height="150" rx="6" fill="#f7faf7" stroke="#b6d3b0"/>
+  <text x="502" y="246" font-size="13" font-weight="700" fill="#5a8a52">WS 게이트웨이 2</text>
+  <rect x="506" y="258" width="316" height="40" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="664" y="283" font-size="12.5" fill="#2f5c28" text-anchor="middle">ordered consumer · DeliverNew (실시간만)</text>
+  <rect x="506" y="308" width="316" height="56" rx="5" fill="#e1d5e7" stroke="#9673a6" filter="url(#sh)"/>
+  <text x="664" y="331" font-size="12.5" font-weight="600" fill="#4a2d63" text-anchor="middle">인메모리 상태</text>
+  <text x="664" y="350" font-size="11" fill="#5f4080" text-anchor="middle">userId→socket · 방 멤버십 맵</text>
+
+  <!-- stream → consumer (인스턴스당 1개) -->
+  <path d="M170,114 L170,200 L236,200 L236,222" fill="none" stroke="#3f6fb5" stroke-width="1.8" marker-end="url(#arrb)"/>
+  <path d="M210,114 L210,176 L664,176 L664,222" fill="none" stroke="#3f6fb5" stroke-width="1.8" marker-end="url(#arrb)"/>
+  <text x="440" y="168" font-size="12" font-weight="600" fill="#3f6fb5" text-anchor="middle">독립 push 배달 — 인스턴스당 consumer 1개만</text>
+
+  <!-- 인메모리 → 소켓 fan-out (1:N) -->
+  <ellipse cx="150" cy="440" rx="52" ry="20" fill="#ffe6cc" stroke="#d79b00"/><text x="150" y="445" font-size="11.5" fill="#7a4d00" text-anchor="middle">소켓 A</text>
+  <ellipse cx="264" cy="440" rx="52" ry="20" fill="#ffe6cc" stroke="#d79b00"/><text x="264" y="445" font-size="11.5" fill="#7a4d00" text-anchor="middle">소켓 D</text>
+  <path d="M200,364 L150,364 L150,418" fill="none" stroke="#c47f1a" stroke-width="1.6" marker-end="url(#arro)"/>
+  <path d="M264,364 L264,418" fill="none" stroke="#c47f1a" stroke-width="1.6" marker-end="url(#arro)"/>
+  <ellipse cx="588" cy="440" rx="52" ry="20" fill="#ffe6cc" stroke="#d79b00"/><text x="588" y="445" font-size="11.5" fill="#7a4d00" text-anchor="middle">소켓 B</text>
+  <ellipse cx="702" cy="440" rx="52" ry="20" fill="#ffe6cc" stroke="#d79b00"/><text x="702" y="445" font-size="11.5" fill="#7a4d00" text-anchor="middle">소켓 C</text>
+  <path d="M628,364 L588,364 L588,418" fill="none" stroke="#c47f1a" stroke-width="1.6" marker-end="url(#arro)"/>
+  <path d="M702,364 L702,418" fill="none" stroke="#c47f1a" stroke-width="1.6" marker-end="url(#arro)"/>
+  <text x="360" y="405" font-size="11.5" font-weight="600" fill="#c47f1a" text-anchor="middle">메모리 fan-out (1:N)</text>
+
+  <!-- Direct Get replay -->
+  <rect x="300" y="500" width="300" height="60" rx="5" fill="#f8ecff" stroke="#9673a6" stroke-dasharray="5 4"/>
+  <text x="450" y="524" font-size="12.5" font-weight="600" fill="#4a2d63" text-anchor="middle">재접속 replay · Direct Get(start_seq)</text>
+  <text x="450" y="543" font-size="11" fill="#5f4080" text-anchor="middle">consumer 없이 범위 조회 (개인 커서)</text>
+  <path d="M300,520 L40,520 L40,85 L54,85" fill="none" stroke="#7d5aa6" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrp)"/>
+
+  <!-- 캡션 -->
+  <rect x="56" y="600" width="788" height="60" rx="6" fill="#d5e8d4" stroke="#82b366"/>
+  <text x="450" y="627" font-size="14" font-weight="700" fill="#2f5c28" text-anchor="middle">consumer 수 = 인스턴스 수 (동접과 무관)</text>
+  <text x="450" y="648" font-size="12" fill="#3f6b36" text-anchor="middle">인스턴스 수십 대 → consumer 수십 개. 10만 벽에서 벗어난다</text>
+
+  <text x="876" y="688" font-size="10.5" fill="#bbb" text-anchor="end">JongDeug · dev log</text>
+</svg>

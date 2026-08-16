@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" font-family="'Pretendard',-apple-system,sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <marker id="arrb" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3f6fb5"/>
+    </marker>
+    <filter id="sh" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="860" height="560" fill="#ffffff"/>
+
+  <!-- JetStream 컨테이너 -->
+  <rect x="24" y="24" width="812" height="118" rx="6" fill="#fafafa" stroke="#c2c2c2" stroke-dasharray="5 4"/>
+  <text x="40" y="46" font-size="13" font-weight="700" fill="#888">JetStream</text>
+  <!-- ORG stream -->
+  <rect x="60" y="60" width="250" height="60" rx="5" fill="#dae8fc" stroke="#6c8ebf" filter="url(#sh)"/>
+  <text x="185" y="86" font-size="14" font-weight="600" fill="#1f3a5f" text-anchor="middle">org별 stream</text>
+  <text x="185" y="106" font-size="11.5" fill="#40587a" text-anchor="middle">Limits + MaxAge TTL</text>
+  <!-- 저장용 stream -->
+  <rect x="560" y="60" width="240" height="60" rx="5" fill="#f0f0f0" stroke="#8a8a8a" filter="url(#sh)"/>
+  <text x="680" y="86" font-size="14" font-weight="600" fill="#333" text-anchor="middle">저장용 stream</text>
+  <text x="680" y="106" font-size="11.5" fill="#666" text-anchor="middle">WorkQueue → DB</text>
+  <!-- republish -->
+  <line x1="310" y1="90" x2="558" y2="90" stroke="#999" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+  <text x="434" y="82" font-size="11" fill="#888" text-anchor="middle">republish</text>
+
+  <!-- 인스턴스 1 -->
+  <rect x="60" y="230" width="360" height="150" rx="6" fill="#f7faf7" stroke="#b6d3b0"/>
+  <text x="78" y="252" font-size="13" font-weight="700" fill="#5a8a52">WS 인스턴스 1</text>
+  <rect x="82" y="266" width="316" height="42" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="240" y="292" font-size="13" fill="#2f5c28" text-anchor="middle">소켓 A · ephemeral consumer</text>
+  <rect x="82" y="320" width="316" height="42" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="240" y="346" font-size="13" fill="#2f5c28" text-anchor="middle">소켓 B · ephemeral consumer</text>
+
+  <!-- 인스턴스 2 -->
+  <rect x="450" y="230" width="360" height="150" rx="6" fill="#f7faf7" stroke="#b6d3b0"/>
+  <text x="468" y="252" font-size="13" font-weight="700" fill="#5a8a52">WS 인스턴스 2</text>
+  <rect x="472" y="266" width="316" height="42" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="630" y="292" font-size="13" fill="#2f5c28" text-anchor="middle">소켓 C · ephemeral consumer</text>
+  <rect x="472" y="320" width="316" height="42" rx="5" fill="#d5e8d4" stroke="#82b366" filter="url(#sh)"/>
+  <text x="630" y="346" font-size="13" fill="#2f5c28" text-anchor="middle">소켓 D · ephemeral consumer</text>
+
+  <!-- stream → 인스턴스 (복제 배달) -->
+  <path d="M165,120 L165,205 L240,205 L240,228" fill="none" stroke="#3f6fb5" stroke-width="1.8" marker-end="url(#arrb)"/>
+  <path d="M205,120 L205,178 L630,178 L630,228" fill="none" stroke="#3f6fb5" stroke-width="1.8" marker-end="url(#arrb)"/>
+  <text x="440" y="170" font-size="12" font-weight="600" fill="#3f6fb5" text-anchor="middle">독립 push 배달 — 연결마다 consumer 1개 (1:1)</text>
+
+  <!-- 핵심 캡션 -->
+  <rect x="60" y="420" width="740" height="60" rx="6" fill="#fff2cc" stroke="#d6b656"/>
+  <text x="430" y="447" font-size="14" font-weight="700" fill="#7a5c00" text-anchor="middle">consumer 수 = 동시접속 수</text>
+  <text x="430" y="468" font-size="12" fill="#8a6d1a" text-anchor="middle">연결이 1만 개면 consumer도 1만 개 — 메타레이어(raft·메타리더)가 먼저 무너진다</text>
+
+  <text x="836" y="540" font-size="10.5" fill="#bbb" text-anchor="end">JongDeug · dev log</text>
+</svg>

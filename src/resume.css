@@ -1,0 +1,314 @@
+/* ── 이력서 — 색인 문법(시안 B) 그대로. 화면은 브루탈, 인쇄는 흑백 문서 ── */
+
+.cv-wrap { max-width: 880px; margin: 0 auto; padding: 56px 24px 110px; }
+
+/* 마스트헤드 */
+.cv-head { border: 2px solid var(--rule); padding: 32px 32px 28px; }
+.cv-head-main { display: flex; gap: 28px; align-items: stretch; }
+.cv-head-main > div:first-child { flex: 1; min-width: 0; }
+.cv-head-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+
+/* 프로필 사진 — 색인 문법의 괘선 박스, 흑백 처리 */
+.cv-photo { margin: 0; flex-shrink: 0; width: 176px; border: 2px solid var(--rule); align-self: flex-start; }
+/* 얼굴 위주 확대 크롭 — 원본은 전신 스튜디오 컷 */
+.cv-photo .ph { overflow: hidden; aspect-ratio: 1; }
+/* 세로 원본(2:3)을 정사각으로 — 상단 정렬로 얼굴·상반신 프레이밍 */
+.cv-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 50% 10%;
+  transform: scale(1.45);
+  transform-origin: 47% 24%;
+}
+.cv-photo figcaption {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  padding: 4px 2px;
+  border-top: 2px solid var(--rule);
+  background: var(--band);
+  color: var(--paper);
+}
+.cv-name {
+  margin: 0;
+  font-family: var(--arch);
+  font-weight: 900;
+  font-size: clamp(38px, 6.6vw, 54px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.cv-role { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; }
+.cv-quote {
+  margin: 20px 0 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--rule);
+  background: var(--paper-lift);
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: #33312c;
+}
+.cv-contacts {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule-soft);
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.cv-contacts a { color: inherit; text-decoration: none; }
+.cv-contacts a:hover { background: var(--band); color: var(--paper); }
+
+/* 섹션 박스 — 마스트헤드 아래로 이어 붙는 괘선 구조 */
+.cv-sec { border: 2px solid var(--rule); border-top: none; }
+.cv-sec-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: var(--band);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 9px 16px;
+}
+.cv-sec-body { padding: 26px 32px 30px; background: var(--paper-lift); }
+
+/* 소개 */
+.cv-block + .cv-block { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--rule-soft); }
+.cv-block-title { margin: 0; font-size: 16.5px; font-weight: 800; letter-spacing: -0.02em; }
+.cv-block-sub { margin: 5px 0 0; font-family: var(--mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.04em; }
+
+/* 불릿 */
+.cv-ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.cv-ul li { position: relative; padding-left: 22px; margin: 0 0 9px; font-size: 13.8px; line-height: 1.7; color: #26241f; }
+.cv-ul li::before { content: '—'; position: absolute; left: 0; font-family: var(--mono); color: var(--ink); }
+.cv-ul .lab { font-weight: 700; color: var(--ink); }
+.cv-ul .em { font-style: italic; }
+.cv-ul .sub { margin: 8px 0 0; padding: 0 0 0 4px; list-style: none; }
+.cv-ul .sub li { font-size: 12.8px; color: var(--ink-2); margin-bottom: 5px; padding-left: 18px; }
+.cv-ul .sub li::before { content: '·'; }
+
+/* 스킬 — 색인 행 문법 */
+.cv-skill-row {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.cv-skill-row:last-child { border-bottom: none; }
+.cv-skill-k {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 13px 16px;
+  border-right: 1px solid var(--rule-soft);
+  color: var(--ink-2);
+}
+.cv-skill-v { padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  border: 1px solid var(--rule-soft);
+  padding: 2.5px 9px;
+  background: var(--paper);
+  line-height: 1.6;
+}
+/* 로고는 흑백 — 브루탈리즘 모노크롬 유지, 색은 --red 포인트만 */
+.cv-chip svg { width: 13px; height: 13px; flex-shrink: 0; }
+.cv-chip svg path { fill: var(--ink); }
+
+/* 프로젝트 */
+.cv-note { margin: 0 0 4px; font-family: var(--mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.06em; }
+.cv-proj + .cv-proj { margin-top: 28px; padding-top: 26px; border-top: 1px solid var(--rule-soft); }
+.cv-proj-title { margin: 0; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.cv-proj-no { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--red); }
+.cv-badge {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  background: var(--band);
+  color: var(--paper);
+  padding: 2px 8px;
+}
+.cv-stack { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.cv-figure { margin: 14px 0 4px; }
+.cv-figure img { width: 100%; height: auto; display: block; border: 2px solid var(--rule); background: #fff; }
+
+/* 산하 프로젝트 */
+.cv-proj-sub { margin: 20px 0 0 0; padding: 16px 0 0 18px; border-left: 2px solid var(--rule); }
+.cv-sub-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--rule-soft);
+  padding: 2px 7px;
+  font-weight: 500;
+}
+
+/* ── SNS 게이트웨이 다이어그램 ── */
+.dg { border: 2px solid var(--rule); margin: 16px 0 6px; background: var(--paper); }
+.dg-bar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--band);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  padding: 7px 14px;
+}
+.dg-cols { display: grid; grid-template-columns: 1fr auto 1.35fr auto 1fr; align-items: stretch; }
+.dg-col { padding: 14px 16px 16px; min-width: 0; }
+.dg-col-main { border-left: 1px solid var(--rule-soft); border-right: 1px solid var(--rule-soft); background: var(--paper-lift); }
+.dg-h {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+.dg-h small { font-weight: 400; font-size: 9.5px; color: var(--ink-2); letter-spacing: 0.04em; }
+.dg-list { margin: 0; padding: 0; list-style: none; }
+.dg-list li { position: relative; padding-left: 14px; margin: 0 0 6px; font-size: 12px; line-height: 1.5; }
+.dg-list li::before { content: '·'; position: absolute; left: 2px; font-family: var(--mono); }
+/* 채널 리스트 — 흑백 브랜드 로고 (칩과 같은 문법) */
+.dg-ch li { display: flex; align-items: center; gap: 7px; padding-left: 0; }
+.dg-ch li::before { content: none; }
+.dg-ch svg { width: 13px; height: 13px; flex-shrink: 0; }
+.dg-ch svg path { fill: var(--ink); }
+.dg-steps { margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.dg-steps li { display: flex; gap: 9px; margin: 0 0 9px; align-items: baseline; }
+.dg-steps .n { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--red); flex-shrink: 0; }
+.dg-steps span { display: block; min-width: 0; }
+.dg-steps span b { display: block; font-size: 12.5px; font-weight: 700; line-height: 1.4; }
+.dg-steps span small { display: block; font-size: 11px; color: var(--ink-2); line-height: 1.5; }
+.dg-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.dg-arrow-lab { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.1em; color: var(--ink-2); writing-mode: initial; }
+.dg-arrow-lab.dg-red { color: var(--red); font-weight: 600; }
+.dg-foot {
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  padding: 8px 14px;
+  color: var(--ink-2);
+}
+
+@media (max-width: 640px) {
+  .dg-cols { grid-template-columns: 1fr; }
+  .dg-col-main { border-left: none; border-right: none; border-top: 1px solid var(--rule-soft); border-bottom: 1px solid var(--rule-soft); }
+  .dg-arrow { flex-direction: row; padding: 6px 16px; font-size: 13px; }
+}
+
+@media print {
+  .dg-bar { background: #fff !important; color: #111 !important; border-bottom: 1px solid #111; font-weight: 700; }
+  .dg { break-inside: avoid; border-width: 1px; }
+}
+
+/* 학력·자격 */
+.cv-edu { margin: 0 0 8px; font-size: 13.8px; }
+.cv-edu b { font-weight: 700; }
+.cv-edu .prd { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); }
+.cv-certs { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--rule-soft); }
+.cv-certs-title { margin: 0 0 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-2); }
+
+/* 자기소개서 */
+.cv-cover-title {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  background: var(--band);
+  color: var(--paper);
+  padding: 3px 10px;
+  margin: 0 0 18px;
+}
+.cv-p { margin: 0 0 13px; font-size: 13.8px; line-height: 1.78; color: #26241f; }
+.cv-cover-h { margin: 18px 0 6px; font-size: 14.5px; font-weight: 800; }
+.cv-cover-h .n { color: var(--red); font-family: var(--mono); font-size: 13px; margin-right: 2px; }
+.cv-cover-quote {
+  margin: 18px 0 0;
+  border-left: 3px solid var(--rule);
+  background: var(--paper);
+  padding: 12px 18px;
+  font-size: 13.8px;
+  line-height: 1.78;
+}
+
+/* 푸터 */
+.cv-foot {
+  border: 2px solid var(--rule);
+  border-top: none;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  padding: 13px 16px;
+}
+.cv-foot a { color: inherit; text-decoration: none; }
+.cv-foot a:hover { background: var(--band); color: var(--paper); }
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
+  .cv-wrap { padding: 28px 14px 70px; }
+  .cv-head { padding: 24px 20px 22px; }
+  .cv-head-main { flex-direction: column-reverse; gap: 18px; }
+  .cv-photo { width: 132px; }
+  .cv-sec-body { padding: 20px 18px 24px; }
+  .cv-skill-row { grid-template-columns: 1fr; }
+  .cv-skill-k { border-right: none; border-bottom: 1px dashed var(--rule-soft); padding-bottom: 8px; }
+}
+
+/* ── 인쇄 / PDF — 화면은 브루탈, 인쇄는 흑백 문서 ── */
+@page { margin: 12mm; }
+@media print {
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body, .ix-root { background: #fff !important; }
+  .cv-wrap { max-width: 100%; padding: 0; }
+  /* 반전 밴드 → 얇은 검정 괘선 텍스트로 */
+  .cv-sec-bar, .cv-badge, .cv-cover-title {
+    background: #fff !important;
+    color: #111 !important;
+    border-bottom: 1px solid #111;
+    font-weight: 700;
+  }
+  .cv-badge, .cv-cover-title { border: 1px solid #111; }
+  .cv-sec-body, .cv-quote, .cv-chip, .cv-cover-quote { background: #fff !important; }
+  .cv-head, .cv-sec, .cv-foot { border-width: 1px; }
+  .cv-figure img { border-width: 1px; }
+  /* 페이지 경계 보호 */
+  .cv-block, .cv-proj, .cv-skill-row, .cv-edu, .cv-p, .cv-figure { break-inside: avoid; }
+  .cv-sec-bar { break-after: avoid; }
+  .cv-print-hide { display: none !important; }
+  a { text-decoration: none; }
+}

@@ -1,5 +1,4 @@
 // 이력서 데이터 (단일 소스) — 내용만 여기서 바꾸면 웹/‑추후 PDF 모두 갱신
-import snsGateway from '../assets/sns-gateway-compact.png'
 
 export default {
   name: `김종환`,
@@ -60,8 +59,7 @@ export default {
           title: `외부 SNS 채널 7종 통합 연동 게이트웨이`,
           badge: null,
           stack: [`NestJS`, `TypeScript`, `MariaDB`, `Prisma`, `NATS`, `Docker`],
-          figure: snsGateway,
-          figureAlt: `SNS 채널 7종(카카오·Meta·LINE·WeChat 외) → Integration Gateway(webhook 수집·정규화·팩토리 패턴) → NATS → 병원용 통합 인박스 흐름도`,
+          diagram: `sns`, // → SnsDiagram 컴포넌트 렌더 (구 PNG figure 대체)
           items: [
             { k: `문제`, v: `여러 SNS 채널(Kakao·Meta·LINE·WeChat 등)로 인입되는 고객 메시지를 하나의 병원용 메신저 플랫폼에서 처리해야 했고, 초기 구조는 외부 SaaS(Respond.io)에 의존.` },
             { k: `결정`, v: `각 SNS 공식 문서를 수집해 API 및 공통 DTO 설계.` },
