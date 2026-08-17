@@ -51,6 +51,23 @@
 }
 .ix-meta b { background: var(--band); color: var(--paper); padding: 1px 7px; font-weight: 500; }
 
+.ix-search {
+  margin-top: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--paper-lift);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  appearance: none;
+}
+.ix-search::placeholder { color: var(--ink-3); }
+.ix-search:focus { outline: none; border-color: var(--red); background: var(--paper); }
+
 /* ── 색인 테이블 ── */
 .ix { border: 2px solid var(--rule); }
 .ix-cols {

@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { marked } from 'marked'
 import { posts, getPost } from './posts'
+import { buildIndex, search } from './search'
 import { Link } from './router'
 import './blog.css'
 
@@ -102,8 +103,16 @@ function useDiagrams(ref, slug) {
   }, [ref, slug])
 }
 
+const index = buildIndex(posts)
+
 export function BlogList() {
   useTitle('Index. — 김종환의 작업 색인')
+  const [q, setQ] = useState('')
+
+  const hits = useMemo(() => {
+    const found = search(index, q)
+    return found ? found.map(({ i }) => [posts[i], i]) : posts.map((p, i) => [p, i])
+  }, [q])
 
   return (
     <div className="ix-root">
@@ -117,7 +126,7 @@ export function BlogList() {
           </div>
           <div className="ix-meta">
             <span>
-              TOTAL <b>{String(posts.length).padStart(3, '0')}</b>
+              TOTAL <b>{String(hits.length).padStart(3, '0')}</b>
             </span>
             {posts[0] && (
               <span>
@@ -128,6 +137,14 @@ export function BlogList() {
               FIELD <b>BACKEND / MSA</b>
             </span>
           </div>
+          <input
+            className="ix-search"
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="SEARCH — 여러 단어 · 초성(ㄹㄴㅅ → 리눅스)도 됨"
+            aria-label="글 검색"
+          />
         </header>
 
         <div className="ix">
@@ -138,8 +155,8 @@ export function BlogList() {
             <span>TAGS</span>
           </div>
 
-          {posts.length === 0 && <p className="ix-empty">NO ENTRIES YET</p>}
-          {posts.map((p, i) => (
+          {hits.length === 0 && <p className="ix-empty">{q ? `NO MATCH FOR "${q}"` : 'NO ENTRIES YET'}</p>}
+          {hits.map(([p, i]) => (
             <Link to={`/blog/${p.slug}`} className="ix-row" key={p.slug}>
               <span className="ix-no">{seq(i)}</span>
               <span className="ix-dt">{stamp(p.date)}</span>
